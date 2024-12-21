@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="style.css" rel="stylesheet">
+    <script type="text/javascript" src="js.js"></script>
+    <title>Инженерный калькулятор</title>
+    
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" id="result" class="display" disabled>
+        
+        <!-- Основные кнопки -->
+        <div class="button-container">
+            <button onclick="clearResult()">C</button>
+            <button onclick="appendValue('7')">7</button>
+            <button onclick="appendValue('8')">8</button>
+            <button onclick="appendValue('9')">9</button>
+            <button onclick="deleteLastChar()">⌫</button>
+        
+            <button onclick="appendValue('4')">4</button>
+            <button onclick="appendValue('5')">5</button>
+            <button onclick="appendValue('6')">6</button>
+            <button onclick="appendValue('/')">/</button>
+        
+            <button onclick="appendValue('1')">1</button>
+            <button onclick="appendValue('2')">2</button>
+            <button onclick="appendValue('3')">3</button>
+            <button onclick="appendValue('*')">*</button>
+        
+            <button onclick="appendValue('0')">0</button>
+            <button onclick="appendValue('.')">.</button>
+            <button onclick="appendValue('-')">-</button>
+            <button onclick="appendValue('+')">+</button>
+        
+            <button class="equal" onclick="calculateResult()">=</button>
+        </div>
+        
+
+        <!-- Кнопка переключения -->
+        <button class="toggle-btn" onclick="toggleScientific()">Инженерный режим</button>
+
+        <!-- Инженерные кнопки -->
+        <div class="scientific-buttons">
+            <div class="button-container">
+                <button onclick="appendValue('sin(')">sin</button>
+                <button onclick="appendValue('cos(')">cos</button>
+                <button onclick="appendValue('tan(')">tan</button>
+                <button onclick="appendValue('log(')">log</button>
+
+                <button onclick="appendValue('asin(')">arcsin</button>
+                <button onclick="appendValue('acos(')">arccos</button>
+                <button onclick="appendValue('atan(')">arctg</button>
+                <button onclick="appendValue('1/tan(')">arcctg</button>
+
+                <button onclick="appendValue('sqrt(')">√</button>
+                <button onclick="appendValue('abs(')">|x|</button>
+                <button onclick="appendValue('PI')">π</button>
+                <button onclick="appendValue('E')">e</button>
+
+                <button onclick="appendValue('(')">(</button>
+                <button onclick="appendValue(')')">)</button>
+                <button onclick="appendValue('%')">%</button>
+                <button onclick="appendValue('**')">^</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- История вычислений -->
+    <div class="history">
+        <div class="history-title">История</div>
+        <div id="history-content"></div>
+    </div>
+</body>
+</html>
