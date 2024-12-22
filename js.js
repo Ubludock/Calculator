@@ -7,8 +7,10 @@ function calculateResult() {
         const correctedExpression = addMissingBrackets(resultField.value);
         console.log("Скорректированное выражение:", correctedExpression);
 
-        // Преобразуем выражение
-        const expression = replaceAliases(convertPercentages(convertDegreesToRadians(correctedExpression)));
+        // Последовательно обрабатываем выражение
+        let expression = replaceAliases(correctedExpression); // Заменяем короткие имена
+        expression = convertDegreesToRadians(expression); // Преобразуем градусы в радианы
+        expression = convertPercentages(expression); // Преобразуем проценты
         console.log("Выражение для eval:", expression);
 
         // Вычисляем результат
@@ -21,10 +23,13 @@ function calculateResult() {
 
         isResult = true; // Устанавливаем флаг
     } catch (error) {
+        console.error("Ошибка в выражении:", error.message);
         alert('Ошибка в выражении');
         clearResult();
     }
 }
+
+
 
 function addMissingBrackets(expression) {
     let openBrackets = 0; // Счётчик открывающих скобок
@@ -48,33 +53,31 @@ function addMissingBrackets(expression) {
     return expression;
 }
 
-// Преобразование градусов в радианы
-function convertDegreesToRadians(expression) {
-    return expression
-        .replace(/sin\(([^)]+)\)/g, "sin(($1)*Math.PI/180)")
-        .replace(/cos\(([^)]+)\)/g, "cos(($1)*Math.PI/180)")
-        .replace(/tan\(([^)]+)\)/g, "tan(($1)*Math.PI/180)")
-        .replace(/asin\(([^)]+)\)/g, "asin(($1))*180/Math.PI")
-        .replace(/acos\(([^)]+)\)/g, "acos(($1))*180/Math.PI")
-        .replace(/atan\(([^)]+)\)/g, "atan(($1))*180/Math.PI");
-}
-
 // Замена коротких имен на Math-аналоги
 function replaceAliases(expression) {
     return expression
-        .replace(/π/g, "Math.PI") 
-        .replace(/e/g, "Math.E") 
-        .replace(/abs\(/g, "Math.abs(")
-        .replace(/sin\(/g, "Math.sin(")
-        .replace(/cos\(/g, "Math.cos(")
-        .replace(/tan\(/g, "Math.tan(")
-        .replace(/asin\(/g, "Math.asin(")
-        .replace(/acos\(/g, "Math.acos(")
-        .replace(/atan\(/g, "Math.atan(")
-        .replace(/sqrt\(/g, "Math.sqrt(")
-        .replace(/log\(/g, "Math.log(");
+        .replace(/\basin\(/g, "Math.asin(") // Заменяем asin, где \b означает "начало слова"
+        .replace(/\bacos\(/g, "Math.acos(") // Заменяем acos
+        .replace(/\batan\(/g, "Math.atan(") // Заменяем atan
+        .replace(/\bsin\(/g, "Math.sin(")   // Заменяем sin
+        .replace(/\bcos\(/g, "Math.cos(")   // Заменяем cos
+        .replace(/\btan\(/g, "Math.tan(")   // Заменяем tan
+        .replace(/\babs\(/g, "Math.abs(")   // Заменяем abs
+        .replace(/\bsqrt\(/g, "Math.sqrt(") // Заменяем sqrt
+        .replace(/\blog\(/g, "Math.log(")   // Заменяем log
+        .replace(/π/g, "Math.PI")           // Заменяем π на Math.PI
+        .replace(/e/g, "Math.E");           // Заменяем e на Math.E
 }
 
+function convertDegreesToRadians(expression) {
+    return expression
+        .replace(/Math\.sin\(([^)]+)\)/g, "Math.sin(($1)*Math.PI/180)") // sin(x)
+        .replace(/Math\.cos\(([^)]+)\)/g, "Math.cos(($1)*Math.PI/180)") // cos(x)
+        .replace(/Math\.tan\(([^)]+)\)/g, "Math.tan(($1)*Math.PI/180)") // tan(x)
+        .replace(/Math\.asin\(([^)]+)\)/g, "Math.asin(($1))*180/Math.PI") // asin(x)
+        .replace(/Math\.acos\(([^)]+)\)/g, "Math.acos(($1))*180/Math.PI") // acos(x)
+        .replace(/Math\.atan\(([^)]+)\)/g, "Math.atan(($1))*180/Math.PI"); // atan(x)
+}
 
 function appendValue(value) {
     const resultField = document.getElementById('result');
@@ -94,17 +97,13 @@ function appendValue(value) {
     }
 }
 
-
-
 function clearResult() {
     const resultField = document.getElementById('result');
     resultField.value = ''; // Полностью очищаем поле
     isResult = false; // Сбрасываем флаг результата
 }
 
-
 let isResult = false; // Указывает, отображается ли результат в поле ввода
-
 
 function toggleScientific() {
     const scientificButtons = document.querySelector('.scientific-buttons');
