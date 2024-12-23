@@ -62,6 +62,7 @@ function replaceAliases(expression) {
         .replace(/\bsin\(/g, "Math.sin(")   // Заменяем sin
         .replace(/\bcos\(/g, "Math.cos(")   // Заменяем cos
         .replace(/\btan\(/g, "Math.tan(")   // Заменяем tan
+        .replace(/\bactan\(/g, "90 - Math.atan(")   // Вычисление actan 
         .replace(/\babs\(/g, "Math.abs(")   // Заменяем abs
         .replace(/\bsqrt\(/g, "Math.sqrt(") // Заменяем sqrt
         .replace(/\blog\(/g, "Math.log(")   // Заменяем log
