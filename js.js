@@ -87,6 +87,16 @@ function appendValue(value) {
         isResult = false;
     }
 
+    //Проверка для избежания ошибок
+    if (value === '.' && (resultField.value === '' || /[+\-*(]$/.test(resultField.value))) { 
+        alert('Число не может начинаться с точки'); // Не даёт ввести первым символом в числе точку
+        return;
+    }
+    if (resultField.value === '0' && value !== '.') {
+        alert('После 0 - только точка'); // Не даёт ввести цифру после 0
+        return;
+    }
+
     // Отображаем символы π и e
     if (value === 'PI') {
         resultField.value += 'π'; // Показываем символ π
