@@ -88,13 +88,19 @@ function appendValue(value) {
         isResult = false;
     }
 
-    //Проверка для избежания ошибок
-    if (value === '.' && (resultField.value === '' || /[+\-*(]$/.test(resultField.value))) { 
-        alert('Число не может начинаться с точки'); // Не даёт ввести первым символом в числе точку
+    // Проверка на правильность написания числа
+    if (value === '.' && (resultField.value === '' || /[+\-/*(]$/.test(resultField.value) || resultField.value.includes('.'))) { 
+        alert('Ошибка в написании числа'); // Не даёт ввести первым символом в числе точку или вторую точку
         return;
     }
-    if (resultField.value === '0' && value !== '.') {
-        alert('После 0 - только точка'); // Не даёт ввести цифру после 0
+
+    if (resultField.value.includes('.') && /[+\-/*]$/.test(value)) {
+        alert('Ошибка в написании числа'); // Не даёт после точки поставить знак
+        return;
+    }
+
+    if (resultField.value === '0' && !['.', '+', '-', '*', '/'].includes(value)) {
+        alert('Ошибка в написании числа'); // Не даёт после 0 ввести число
         return;
     }
 

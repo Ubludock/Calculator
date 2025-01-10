@@ -9,7 +9,7 @@
     
 </head>
 <body>
-    <div class="calculator">
+    <div id="calculator">
         <input type="text" id="result" class="display" disabled>
         
         <!-- Основные кнопки -->
@@ -48,7 +48,7 @@
                 <button onclick="appendValue('sin(')">sin</button>
                 <button onclick="appendValue('cos(')">cos</button>
                 <button onclick="appendValue('tan(')">tan</button>
-                <button onclick="appendValue('log(')">log</button>
+                <button onclick="appendValue('log(')">ln</button>
 
                 <button onclick="appendValue('asin(')">arcsin</button>
                 <button onclick="appendValue('acos(')">arccos</button>
@@ -69,8 +69,8 @@
     </div>
 
     <!-- История вычислений -->
-    <div class="history">
-        <div class="history-title">История</div>
+    <div id="history">
+        <div id="history-title">История</div>
         <div id="history-content"></div>
     </div>
 </body>
